@@ -94,19 +94,19 @@ public class TemperatureSeriesAnalysisTest {
 
         double expResult = 1.0;
 
-        assertEquals(expResult, actualResult.avgTemp, 0.00001);
+        assertEquals(expResult, actualResult.checkAvg(), 0.00001);
 
         expResult = 3.74165738;
 
-        assertEquals(expResult, actualResult.devTemp, 0.00001);
+        assertEquals(expResult, actualResult.checkDev(), 0.00001);
 
         expResult = -5.0;
 
-        assertEquals(expResult, actualResult.minTemp, 0.00001);
+        assertEquals(expResult, actualResult.checkMin(), 0.00001);
 
         expResult = 5.0;
 
-        assertEquals(expResult, actualResult.maxTemp, 0.00001);
+        assertEquals(expResult, actualResult.checkMax(), 0.00001);
     }
 
     @Test
