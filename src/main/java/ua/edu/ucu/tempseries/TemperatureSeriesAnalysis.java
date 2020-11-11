@@ -74,7 +74,7 @@ public class TemperatureSeriesAnalysis {
             double diffVal = (tempr - tempValue)*(tempr - tempValue);
             if (diffCur > diffVal) {
                 cur = tempr;
-            } else if (diffCur == diffVal) {
+            } else if (Math.abs(diffCur - diffVal) < 0.00001) {
                 if (tempr > cur) {
                     cur = tempr;
                 }
@@ -133,26 +133,16 @@ public class TemperatureSeriesAnalysis {
 
     public int addTemps(double... temps) {
         int len = this.temperatureSeries.length;
-        int i = 0;
-        for (double item: this.temperatureSeries) {
-            i++;
+        double[] storage = new double[len * 2];
+        for (int j = 0; j < len; j++) {
+            storage[j] = this.temperatureSeries[j];
         }
-        if (len - i < temps.length) {
-            double[] storage = new double[len * 2];
-            for (int j = 0; j < len; j++) {
-                storage[j] = this.temperatureSeries[j];
-            }
-            this.temperatureSeries = storage;
-            len = this.temperatureSeries.length;
-        }
+        this.temperatureSeries = storage;
+        int newLen = this.temperatureSeries.length;
 
-        for (int k = len; k < len; k++) {
-            this.temperatureSeries[k] = temps[k];
+        for (int k = len; k < newLen; k++) {
+            this.temperatureSeries[k] = temps[k-len];
         }
-        i = 0;
-        for (double item: this.temperatureSeries) {
-            i++;
-        }
-        return i;
+        return newLen;
     }
 }
