@@ -3,9 +3,15 @@ package ua.edu.ucu.tempseries;
 public class TemperatureSeriesAnalysis {
 
     private double[] temperatureSeries;
+    private double[] backUpSeries;
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         this.temperatureSeries = temperatureSeries;
+        backUp();
+    }
+
+    private void backUp(){
+        this.backUpSeries = this.temperatureSeries;
     }
 
     public double average() throws IllegalArgumentException {
