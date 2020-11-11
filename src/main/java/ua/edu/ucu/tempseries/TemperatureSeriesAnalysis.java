@@ -33,7 +33,7 @@ public class TemperatureSeriesAnalysis {
         double mean = average();
         double sum = 0;
         for (double tempr:this.temperatureSeries) {
-            sum += Math.pow((tempr - mean), 2);
+            sum += (tempr - mean)*(tempr - mean);
         }
         return  Math.sqrt(sum/len);
     }
@@ -60,7 +60,7 @@ public class TemperatureSeriesAnalysis {
         }
         double max = this.temperatureSeries[0];
         for (double tempr: this.temperatureSeries) {
-            if (max > tempr){
+            if (max > tempr) {
                 max = tempr;
             }
         }
@@ -74,12 +74,12 @@ public class TemperatureSeriesAnalysis {
     public double findTempClosestToValue(double tempValue) {
         double cur = this.temperatureSeries[0];
         for (double tempr: this.temperatureSeries) {
-            double diff_cur = Math.sqrt(cur - tempValue);
-            double diff_val = Math.sqrt(tempr - tempValue);
-            if ( diff_cur < diff_val) {
+            double diffCur = Math.sqrt(cur - tempValue);
+            double diffVal = Math.sqrt(tempr - tempValue);
+            if (diffCur < diffVal) {
                 cur = tempr;
-            }else if (diff_cur == diff_val) {
-                if (tempr > cur){
+            } else if (diffCur == diffVal) {
+                if (tempr > cur) {
                     cur = tempr;
                 }
             }
