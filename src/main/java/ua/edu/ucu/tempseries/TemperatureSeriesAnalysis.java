@@ -69,12 +69,13 @@ public class TemperatureSeriesAnalysis {
 
     public double findTempClosestToValue(double tempValue) {
         double cur = this.temperatureSeries[0];
+        final double delta = 0.00001;
         for (double tempr: this.temperatureSeries) {
             double diffCur = (cur - tempValue)*(cur - tempValue);
             double diffVal = (tempr - tempValue)*(tempr - tempValue);
             if (diffCur > diffVal) {
                 cur = tempr;
-            } else if (Math.abs(diffCur - diffVal) < 0.00001) {
+            } else if (Math.abs(diffCur - diffVal) < delta) {
                 if (tempr > cur) {
                     cur = tempr;
                 }
