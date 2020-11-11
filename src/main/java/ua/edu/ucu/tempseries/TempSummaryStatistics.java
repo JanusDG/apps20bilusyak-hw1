@@ -15,17 +15,17 @@ public final class TempSummaryStatistics {
         this.maxTemp = max;
     }
 
-    public double checkAvg( ){
+    public double checkAvg() {
         return this.avgTemp;
     }
 
-    public double checkDev( ){
+    public double checkDev() {
         return this.devTemp;
     }
-    public double checkMin( ){
+    public double checkMin() {
         return this.minTemp;
     }
-    public double checkMax( ){
+    public double checkMax() {
         return this.maxTemp;
     }
 
