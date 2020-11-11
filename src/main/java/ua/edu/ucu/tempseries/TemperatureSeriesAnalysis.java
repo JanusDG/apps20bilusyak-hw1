@@ -4,10 +4,6 @@ public class TemperatureSeriesAnalysis {
 
     private double[] temperatureSeries;
 
-    public TemperatureSeriesAnalysis() {
-
-    }
-
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         this.temperatureSeries = temperatureSeries;
     }
@@ -46,7 +42,7 @@ public class TemperatureSeriesAnalysis {
         }
         double min = this.temperatureSeries[0];
         for (double tempr:this.temperatureSeries) {
-            if (min < tempr) {
+            if (min > tempr) {
                 min = tempr;
             }
         }
@@ -60,7 +56,7 @@ public class TemperatureSeriesAnalysis {
         }
         double max = this.temperatureSeries[0];
         for (double tempr: this.temperatureSeries) {
-            if (max > tempr) {
+            if (max < tempr) {
                 max = tempr;
             }
         }
@@ -74,9 +70,9 @@ public class TemperatureSeriesAnalysis {
     public double findTempClosestToValue(double tempValue) {
         double cur = this.temperatureSeries[0];
         for (double tempr: this.temperatureSeries) {
-            double diffCur = Math.sqrt(cur - tempValue);
-            double diffVal = Math.sqrt(tempr - tempValue);
-            if (diffCur < diffVal) {
+            double diffCur = (cur - tempValue)*(cur - tempValue);
+            double diffVal = (tempr - tempValue)*(tempr - tempValue);
+            if (diffCur > diffVal) {
                 cur = tempr;
             } else if (diffCur == diffVal) {
                 if (tempr > cur) {
