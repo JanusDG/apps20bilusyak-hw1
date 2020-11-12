@@ -192,7 +192,7 @@ public class TemperatureSeriesAnalysisTest {
         double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0};
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
         double expResult = 8;
-git 
+
         double[] seriesToAdd = {3.0, -5.0, 1.0, 5.0};
         int actualResult = seriesAnalysis.addTemps(seriesToAdd);
 
