@@ -69,13 +69,13 @@ public class TemperatureSeriesAnalysis {
 
     public double findTempClosestToValue(double tempValue) {
         double cur = this.temperatureSeries[0];
-        final double delta = 0.00001;
+        final double DELTA = 0.00001;
         for (double tempr: this.temperatureSeries) {
             double diffCur = (cur - tempValue)*(cur - tempValue);
             double diffVal = (tempr - tempValue)*(tempr - tempValue);
             if (diffCur > diffVal) {
                 cur = tempr;
-            } else if (Math.abs(diffCur - diffVal) < delta) {
+            } else if (Math.abs(diffCur - diffVal) < DELTA) {
                 if (tempr > cur) {
                     cur = tempr;
                 }
@@ -132,7 +132,12 @@ public class TemperatureSeriesAnalysis {
         return new TempSummaryStatistics(avarage, deviation, min, max);
     }
 
-    public int addTemps(double... temps) {
+    public int addTemps(double... temps) throws IllegalArgumentException {
+        for (double item:temps){
+            if (item < -273.0){
+                throw new IllegalArgumentException("the series is empty");
+            }
+        }
         int len = this.temperatureSeries.length;
         double[] storage = new double[len * 2];
         for (int j = 0; j < len; j++) {
