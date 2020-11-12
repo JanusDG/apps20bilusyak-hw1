@@ -192,11 +192,20 @@ public class TemperatureSeriesAnalysisTest {
         double[] temperatureSeries = {3.0, -5.0, 1.0, 5.0};
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
         double expResult = 8;
-
+git 
         double[] seriesToAdd = {3.0, -5.0, 1.0, 5.0};
         int actualResult = seriesAnalysis.addTemps(seriesToAdd);
 
         assertEquals(expResult, actualResult, 0.00001);
+    }
+    @Test
+    public void testSummary() {
+        TempSummaryStatistics statistics = new TempSummaryStatistics(1,2,3,4);
+
+        assertEquals(1, statistics.checkAvg(), 0.00001);
+        assertEquals(2, statistics.checkDev(), 0.00001);
+        assertEquals(3, statistics.checkMin(), 0.00001);
+        assertEquals(4, statistics.checkMax(), 0.00001);
     }
 
 
