@@ -133,8 +133,9 @@ public class TemperatureSeriesAnalysis {
     }
 
     public int addTemps(double... temps) throws IllegalArgumentException {
-        for (double item:temps){
-            if (item < -273.0){
+        final double minimal = -273.0;
+        for (double item: temps) {
+            if (item < minimal) {
                 throw new IllegalArgumentException("the series is empty");
             }
         }
