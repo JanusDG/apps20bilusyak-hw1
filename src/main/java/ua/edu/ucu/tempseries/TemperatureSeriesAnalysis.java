@@ -1,10 +1,8 @@
 package ua.edu.ucu.tempseries;
 
-import java.util.Comparator;
-
 public class TemperatureSeriesAnalysis {
-    final double MINIMAL = -273.0;
-    final double DELTA = 0.00001;
+    final static private double minimal = -273.0;
+    final static private double delta = 0.00001;
     private double[] temperatureSeries;
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
@@ -77,7 +75,7 @@ public class TemperatureSeriesAnalysis {
             double diffVal = (tempr - tempValue)*(tempr - tempValue);
             if (diffCur > diffVal) {
                 cur = tempr;
-            } else if (Math.abs(diffCur - diffVal) < DELTA) {
+            } else if (Math.abs(diffCur - diffVal) < delta) {
                 if (tempr > cur) {
                     cur = tempr;
                 }
@@ -85,16 +83,17 @@ public class TemperatureSeriesAnalysis {
         }
         return cur;
     }
-    public double[] findTemps(double tempValue, boolean less){
+    public double[] findTemps(double tempValue, boolean less) {
         int i = 0;
         for (double tempr: this.temperatureSeries) {
             if (less) {
                 if (tempValue > tempr) {
                     i++;
                 }
-            }else{if (tempValue < tempr) {
+            } else{if (tempValue < tempr) {
                 i++;
-            }}
+            }
+            }
         }
         double[] ret = new double[i];
         int j = 0;
@@ -104,7 +103,7 @@ public class TemperatureSeriesAnalysis {
                     ret[j] = tempr;
                     j++;
                 }
-            }else{if (tempValue < tempr) {
+            } else{if (tempValue < tempr) {
                 ret[j] = tempr;
                 j++;
             }}
@@ -133,7 +132,7 @@ public class TemperatureSeriesAnalysis {
 
     public int addTemps(double... temps) throws IllegalArgumentException {
         for (double item: temps) {
-            if (item < MINIMAL) {
+            if (item < minimal) {
                 throw new IllegalArgumentException("the series is empty");
             }
         }
