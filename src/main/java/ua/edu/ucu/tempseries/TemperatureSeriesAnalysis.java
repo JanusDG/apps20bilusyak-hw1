@@ -102,11 +102,11 @@ public class TemperatureSeriesAnalysis {
             if (less) {
                 if (tempValue > tempr) {
                     ret[j] = tempr;
-                    i++;
+                    j++;
                 }
             }else{if (tempValue < tempr) {
                 ret[j] = tempr;
-                i++;
+                j++;
             }}
         }
         return ret;
