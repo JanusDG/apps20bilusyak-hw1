@@ -1,7 +1,10 @@
 package ua.edu.ucu.tempseries;
 
-public class TemperatureSeriesAnalysis {
+import java.util.Comparator;
 
+public class TemperatureSeriesAnalysis {
+    final double MINIMAL = -273.0;
+    final double DELTA = 0.00001;
     private double[] temperatureSeries;
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
@@ -69,7 +72,6 @@ public class TemperatureSeriesAnalysis {
 
     public double findTempClosestToValue(double tempValue) {
         double cur = this.temperatureSeries[0];
-        final double DELTA = 0.00001;
         for (double tempr: this.temperatureSeries) {
             double diffCur = (cur - tempValue)*(cur - tempValue);
             double diffVal = (tempr - tempValue)*(tempr - tempValue);
@@ -83,41 +85,38 @@ public class TemperatureSeriesAnalysis {
         }
         return cur;
     }
-
-    public double[] findTempsLessThen(double tempValue) {
+    public double[] findTemps(double tempValue, boolean less){
         int i = 0;
         for (double tempr: this.temperatureSeries) {
-            if (tempValue > tempr) {
+            if (less) {
+                if (tempValue > tempr) {
+                    i++;
+                }
+            }else{if (tempValue < tempr) {
                 i++;
-            }
+            }}
         }
         double[] ret = new double[i];
         int j = 0;
         for (double tempr: this.temperatureSeries) {
-            if (tempValue > tempr) {
+            if (less) {
+                if (tempValue > tempr) {
+                    ret[j] = tempr;
+                    i++;
+                }
+            }else{if (tempValue < tempr) {
                 ret[j] = tempr;
-                j++;
-            }
+                i++;
+            }}
         }
         return ret;
     }
+    public double[] findTempsLessThen(double tempValue) {
+        return findTemps(tempValue, true);
+    }
 
     public double[] findTempsGreaterThen(double tempValue) {
-        int i = 0;
-        for (double tempr: this.temperatureSeries) {
-            if (tempValue <= tempr) {
-                i++;
-            }
-        }
-        double[] ret = new double[i];
-        int j = 0;
-        for (double tempr: this.temperatureSeries) {
-            if (tempValue <= tempr) {
-                ret[j] = tempr;
-                j++;
-            }
-        }
-        return ret;
+        return findTemps(tempValue, false);
     }
 
     public TempSummaryStatistics summaryStatistics()
@@ -133,7 +132,6 @@ public class TemperatureSeriesAnalysis {
     }
 
     public int addTemps(double... temps) throws IllegalArgumentException {
-        final double MINIMAL = -273.0;
         for (double item: temps) {
             if (item < MINIMAL) {
                 throw new IllegalArgumentException("the series is empty");
